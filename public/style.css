@@ -1,0 +1,194 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-appearance: none;
+	-webkit-overflow-scrolling: touch;
+	border-radius: 0;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
+	font-size: 15px;
+	padding: 10px 50px 40px;
+	background-color: #e3e3e3;
+}
+
+h1, h2 {
+	font-size: 1em;
+}
+
+h1 {
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+}
+
+header {
+	background-color: #e31b23;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#e31b23, endColorstr=#b32024);
+	background-image: -webkit-linear-gradient(#e31b23, #b32024);
+	background-image: -moz-linear-gradient(#e31b23, #b32024);
+	background-image: linear-gradient(#e31b23, #b32024);
+	border: 1px solid #a00;
+	border-bottom: 1px solid #9f081e;
+	box-shadow: rgba(0, 0, 0, 0.3) 0 2px 5px;
+	position: relative;
+	height: 45px;
+	padding: 10px 0 2px 34px;
+}
+
+#logo {
+	background-image: url('logo.png');
+	background-repeat: no-repeat;
+	background-size: 90px 60px;
+	width: 90px;
+	height: 30px;
+	display: block;
+	position: absolute;
+	left: 19px;
+	top: 11px;
+	width: 90px;
+	height: 30px;
+}
+
+form {
+	position: absolute;
+	left: 130px;
+	top: 14px;
+}
+
+form>input[type=text]:disabled {
+	color: #757575;
+}
+
+form>input[type=text] {
+	border-radius: 50px;
+	padding: 6px 10px;
+	border: 1px solid #2c2c2c;
+	width: 319px;
+	padding-right: 30px;
+	background: #333333;
+	border-color: #882629;
+	color: #fff;
+	box-shadow: inset #333333 0 -5px 5px, inset #131313 0 1px 5px, rgb(230, 45, 52) 0 1px;
+}
+
+form>button[type=submit] {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding-left: 0;
+	height: 100%;
+	background: none;
+	opacity: 0.5;
+	width: 30px;
+	border: 0;
+	font-size: 1em;
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+}
+
+form>button[type=submit]:enabled:hover {
+	opacity: 1;
+}
+
+form>button[type=submit]:before {
+	content: "";
+	position: absolute;
+	left: 3px;
+	top: 50%;
+	width: 20px;
+	height: 40px;
+	margin-top: -20px;
+	background-repeat: no-repeat;
+	background-position: 0 -560px;
+	background-image: url('icons_18_sparse_light_sprite.png');
+}
+
+table {
+	border-collapse: collapse;
+	font-size: 1em;
+}
+
+tr.header {
+	display: none;
+}
+
+th {
+	text-align: left;
+}
+
+caption {
+	font-size: 16px;
+	color: #D51007;
+	font-weight: bold;
+	line-height: 1.5em;
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+caption.not-found {
+	text-decoration: line-through;
+}
+
+tr {
+	border: 1px solid #ccc;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+}
+
+tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+tr:nth-child(odd) {
+	background-color: #fff;
+}
+
+th, td {
+	padding: 0 15px;
+	height: 36px;
+}
+
+.name > a, .match > span {
+	line-height: 24px;
+}
+
+.name > a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+}
+
+.name > a:hover {
+	text-decoration: underline;
+}
+
+.match {
+	display: none;
+}
+
+.match > span {
+	display: block;
+}
+
+#container {
+	overflow-x: auto;
+	display: -webkit-box;
+	height: 100%;
+	background-color: #fff;
+	background: #fff;
+	border-radius: 0 0 3px 3px;
+	border: 1px solid #ccc;
+	border-top: none;
+}
+
+.wrapper {
+	padding: 20px;
+}

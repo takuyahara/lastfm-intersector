@@ -1,0 +1,9 @@
+{
+  "name": "lastfm-similar-artists",
+  "description": "Intersects similar artists",
+  "scripts": {
+    "serve": "firebase serve --only functions,hosting",
+    "deploy": "firebase deploy --only functions,hosting"
+  },
+  "private": true
+}

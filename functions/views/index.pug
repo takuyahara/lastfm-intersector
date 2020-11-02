@@ -1,0 +1,17 @@
+doctype html
+head
+  meta(name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no')
+  title last.fm Intersector
+  link(rel='icon' href='favicon_lfi.ico')
+  link(rel='stylesheet' href='style.css?6')
+header
+  a#logo(href='http://www.lastfm.jp/' target='_blank')
+    h1 last.fm
+  form#formArtists
+    input(type='text' name='inputArtists' placeholder='Input artists with commas' autocomplete='off')
+    button(type='submit' value='Intersect!')
+#container
+script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+script(src='//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js')
+script(src='intersector.js')
+script(src='main.js')
