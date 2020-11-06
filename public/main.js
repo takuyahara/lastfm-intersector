@@ -1,42 +1,59 @@
-
+const baseTitle = document.title;
 const formArtists = document.querySelector(`#formArtists`);
 const inputArtists = formArtists.querySelector(`input[name=inputArtists]`);
 const submit = formArtists.querySelector(`button[type=submit]`);
 const container = document.querySelector(`#container`);
 const lfi = new LastFmIntersector();
+let isPopState = false;
 //
 window.onload = () => {
-  const artists = location.pathname.substr(1);
-  inputArtists.value = unescape(artists);
-  formArtists.addEventListener(`submit`, formArtistsSubmit);
-  if (inputArtists.value != ``) {
+  formArtists.addEventListener(`submit`, handlerSubmit);
+  window.addEventListener(`keydown`, handlerKeyDown);
+  window.addEventListener(`popstate`, handlerPopState);
+  const defaultArtists = location.pathname.substr(1);
+  if (defaultArtists != ``) {
+    inputArtists.value = unescape(defaultArtists);
     formArtists.dispatchEvent(new Event(`submit`));
   }
-  window.addEventListener(`keydown`, ev => {
-    const isFocused = document.activeElement === inputArtists;
-    if (isFocused) {
-      return;
-    }
-    if (ev.key === `/`) {
-      inputArtists.focus();
-      ev.preventDefault();
-    } else if (ev.key === `t`) {
-      lfi.toggleMatch();
-    }
-  })
 };
-const formArtistsSubmit = function (e) {
-  const ia = inputArtists.value.replace(/ *, */, `,`).split(`,`).map(a => a.trim());
-  inputArtists.value = ia.join(`, `);
+const handlerPopState = function(ev) {
+  isPopState = true;
+  const artists = ev.state.artists.join(`,`);
+  inputArtists.value = unescape(artists);
+  formArtists.dispatchEvent(new Event(`submit`));
+  isPopState = false;
+}
+const handlerKeyDown = function(ev) {
+  const isFocused = document.activeElement === inputArtists;
+  if (isFocused) {
+    return;
+  }
+  if (ev.key === `/`) {
+    inputArtists.focus();
+    ev.preventDefault();
+  } else if (ev.key === `t`) {
+    lfi.toggleMatch();
+  }
+}
+const handlerSubmit = function(ev) {
+  const artistsInputted = inputArtists.value.replace(/ *, */, `,`).split(`,`)
+    .map(a => a.trim())
+    .filter(a => a !== ``);
+  const artistsComma = artistsInputted.join(`,`);
+  const artistsCommaSpace = artistsInputted.join(`, `);
+  inputArtists.value = artistsCommaSpace;
   [...container.children].forEach(c => { c.remove() });
-  artists = splitArtists(inputArtists.value);
-  if (artists.length >= 2) {
-    history.pushState(null, document.title, ia.join(`,`));
+  if (artistsInputted.length >= 2) {
+    const title = `${baseTitle} - ${artistsCommaSpace}`;
+    document.title = title;
+    if (!isPopState) {
+      history.pushState({artists: artistsInputted}, title, artistsComma);
+    }
     inputArtists.blur();
     inputArtists.disabled = true;
     submit.disabled = true;
     submit.style.cursor = `default`;
-    lfi.run(artists, container, function () {
+    lfi.run(artistsInputted, container, function () {
       inputArtists.disabled = false;
       submit.disabled = false;
       submit.style.cursor = `pointer`;
@@ -45,16 +62,5 @@ const formArtistsSubmit = function (e) {
   else {
     alert(`Artists should be specified over two separating with commas.`);
   }
-  e.preventDefault();
-}
-const splitArtists = function(artists) {
-  const arrArtists = artists.split(`,`).map(a => {
-    const trimmedArtist = a.trim();
-    const tagMerge = trimmedArtist.match(/\((.*\|.*)\)/);
-    if (tagMerge != null) {
-      return trimmedArtist.replace(/ *\| */g, `|`).slice(1, -1);
-    }
-    return trimmedArtist;
-  }).filter(a => a !== ``);
-  return arrArtists;
+  ev.preventDefault();
 }
