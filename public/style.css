@@ -17,6 +17,14 @@ body {
 	background-color: #e3e3e3;
 }
 
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
 h1, h2 {
 	font-size: 1em;
 }
@@ -124,16 +132,22 @@ th {
 }
 
 caption {
+	padding: 10px 0;
+}
+
+caption > h2, caption > h2 > a {
 	font-size: 16px;
 	color: #D51007;
 	font-weight: bold;
-	line-height: 1.5em;
 	text-align: left;
-	margin-bottom: 10px;
 }
 
-caption.not-found {
+caption.not-found > h2 {
 	text-decoration: line-through;
+}
+
+caption > h2 > a {
+	display: block;
 }
 
 tr {
@@ -152,22 +166,12 @@ tr:nth-child(odd) {
 }
 
 th, td {
-	padding: 0 15px;
-	height: 36px;
-}
-
-.name > a, .match > span {
-	line-height: 24px;
+	padding: 10px 15px;
 }
 
 .name > a {
-	text-decoration: none;
 	color: #000;
 	display: block;
-}
-
-.name > a:hover {
-	text-decoration: underline;
 }
 
 .match {

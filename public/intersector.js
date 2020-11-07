@@ -8,7 +8,10 @@ function LastFmIntersector() {
   this.setEachCallback = function (cb) {
     eachCallback = cb;
   }
-  const generateTable = function (result, _caption) {
+  const generateTable = function (result, _caption, linkInCaption) {
+    if (arguments.length < 3) {
+      linkInCaption = true;
+    }
     const wrapper = (() => {
       const div = document.createElement(`div`);
       div.className = `wrapper`;
@@ -18,9 +21,19 @@ function LastFmIntersector() {
       const table = document.createElement(`table`);
       const caption = (() => {
         const caption = document.createElement(`caption`);
-        caption.className = result.length == 0 ? `not-found` : ``;
+        if (result.length === 0) {
+          caption.className = `not-found`;
+        }
         const h2 = document.createElement(`h2`);
-        h2.innerHTML = _caption;
+        if (linkInCaption) {
+          const a = document.createElement(`a`);
+          a.href = `https://www.last.fm/music/${_caption}`;
+          a.target = `_blank`;
+          a.innerHTML = _caption;
+          h2.append(a);
+        } else {
+          h2.innerHTML = _caption;
+        }
         caption.append(h2);
         return caption;
       })();
@@ -127,7 +140,7 @@ function LastFmIntersector() {
     });
     const intersectedFiltered = intersected.filter(artist => artist.exists === maxScore);
     const intersectedSorted = intersectedFiltered.sort((artistA, artistB) => artistB.match - artistA.match);
-    generateTable(intersectedSorted, INTERSECTED);
+    generateTable(intersectedSorted, INTERSECTED, false);
     callback();
   }
   const searchSimilarArtists = function (artists) {

@@ -17,6 +17,9 @@ window.onload = () => {
   }
 };
 const handlerPopState = function(ev) {
+  if (ev.state === null) {
+    return;
+  }
   isPopState = true;
   const artists = ev.state.artists.join(`,`);
   inputArtists.value = unescape(artists);
